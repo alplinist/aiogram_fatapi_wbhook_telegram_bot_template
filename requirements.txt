@@ -3,3 +3,4 @@ fastapi
 uvicorn
 tortoise-orm
 python-dotenv
+aioredis

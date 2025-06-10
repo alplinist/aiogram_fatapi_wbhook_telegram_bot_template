@@ -1,6 +1,6 @@
 from aiogram import Router, types
 from aiogram.filters import Command
-from bot.db.models import User
+from core.models import User
 
 user_router = Router()
 

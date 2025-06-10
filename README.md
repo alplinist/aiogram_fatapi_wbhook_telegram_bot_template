@@ -9,7 +9,22 @@ pip install -r requirements.txt
 
 Run the application with uvicorn:
 ```bash
-uvicorn bot.main:app --reload
+uvicorn api.main:app --reload
+```
+
+### Project structure
+
+```
+bot/          - Telegram bot logic
+  bot.py      - Bot initialization
+  fsm/        - FSM state definitions
+  handlers/   - Message handlers
+api/          - FastAPI backend
+  main.py     - Application entrypoint
+  deps.py     - Dependency utilities
+  schemas.py  - Pydantic schemas
+  routes/     - API routes
+core/         - Shared configuration and services
 ```
 
 ### API overview
