@@ -35,4 +35,11 @@ core/         - Shared configuration and services
 - `GET /api/orders/{user_id}` – list user orders
 - `GET /api/addresses/{user_id}` – list user addresses
 - `POST /api/addresses` – add a new address
+- `POST /admin/upload` – upload orders from an Excel file
+
+### Bot commands
+
+- `/start` – register the user and show internal ID
+- `/add <tracking>` – submit a new tracking number
+- `/orders` – list current orders with status
 

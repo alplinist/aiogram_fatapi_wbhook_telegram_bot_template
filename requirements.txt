@@ -4,3 +4,4 @@ uvicorn
 tortoise-orm
 python-dotenv
 redis>=4.2
+openpyxl

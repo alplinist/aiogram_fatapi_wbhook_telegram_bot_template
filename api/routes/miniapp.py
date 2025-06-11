@@ -2,6 +2,7 @@ from fastapi import APIRouter, Response
 from core import models
 from core.database import init_db
 from api.schemas import UserCreate, AddressCreate, OrderCreate, OrderUpdate
+from bot.bot import bot
 
 router = APIRouter(prefix="/api")
 
@@ -30,11 +31,20 @@ async def update_order(tracking_number: str, data: OrderUpdate):
     order = await models.Order.get_or_none(tracking_number=tracking_number)
     if order is None:
         return Response(status_code=404)
-    if data.status is not None:
+
+    changes: list[str] = []
+    if data.status is not None and data.status != order.status:
         order.status = data.status
-    if data.weight is not None:
+        changes.append(f"Status changed to {data.status}")
+    if data.weight is not None and data.weight != order.weight:
         order.weight = data.weight
+        changes.append(f"Weight set to {data.weight}")
     await order.save()
+
+    if changes:
+        await order.fetch_related("user")
+        await bot.send_message(order.user.telegram_id, "\n".join(changes))
+
     return {"status": "updated"}
 
 @router.get("/orders/{user_id}")
